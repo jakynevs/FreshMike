@@ -1,8 +1,18 @@
 from datetime import datetime
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from playwright.sync_api import sync_playwright
+import os
+
+load_dotenv()
+
+# Retrieve credentials path from the environment variable
+creds_path = os.getenv("GOOGLE_SHEET_CREDENTIALS")
+
+if creds_path is None:
+    raise Exception("Google credentials path not set in environment variables")
 
 
 def write_to_google_sheet(game_list, sheet):
@@ -53,9 +63,7 @@ def scrape_and_paste():
         ]
 
         # Path to your service account key file
-        creds = ServiceAccountCredentials.from_json_keyfile_name(
-            "freshmike-2d5481656951.json", scope
-        )
+        creds = ServiceAccountCredentials.from_json_keyfile_name(creds_path, scope)
 
         # Authorize and connect
         client = gspread.authorize(creds)
