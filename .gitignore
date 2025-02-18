@@ -2,3 +2,9 @@
 venv/
 __pycache__/
 *.pyc
+*.bat
+build/
+lambda_layer/
+freshmike-2d5481656951.json
+lambda_layer.zip
+install_browsers.sh
